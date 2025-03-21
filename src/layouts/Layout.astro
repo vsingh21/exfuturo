@@ -74,6 +74,11 @@ const structuredData = {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
 
+    <!-- Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content={LOCALE.lang ?? "en"} />
+
     <!-- Article Published/Modified time -->
     {
       pubDatetime && (
@@ -91,13 +96,6 @@ const structuredData = {
         />
       )
     }
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
 
     <!-- Google JSON-LD Structured data -->
     <script
