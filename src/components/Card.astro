@@ -10,7 +10,7 @@ export interface Props extends CollectionEntry<"blog"> {
 
 const { variant = "h2", data, id, filePath } = Astro.props;
 
-const { title, pubDatetime, modDatetime, description } = data;
+const { title, pubDatetime, modDatetime, description, author } = data;
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
@@ -31,6 +31,9 @@ const headerProps = {
       )
     }
   </a>
-  <Datetime {pubDatetime} {modDatetime} />
+  <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+    <span>by {author}</span>
+    <Datetime {pubDatetime} {modDatetime} />
+  </div>
   <p>{description}</p>
 </li>
