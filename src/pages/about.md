@@ -3,7 +3,7 @@ layout: ../layouts/AboutLayout.astro
 title: "About ex futuro"
 ---
 
-Ex futuro is a passionate CTF team dedicated to exploring and learning more about cybersecurity.
+ex futuro is a passionate CTF team dedicated to exploring and learning more about cybersecurity.
 
 ## Team Members
 
