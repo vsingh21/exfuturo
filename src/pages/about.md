@@ -17,6 +17,11 @@ Ex futuro is a passionate CTF team dedicated to exploring and learning more abou
 - LinkedIn: [nishanthjadav](https://www.linkedin.com/in/nishanthjadav/)
 - Email: nishanthjadav@gmail.com
 
+### Chinmay Govind
+- GitHub: [chinmaygovind](https://github.com/chinmaygovind)
+- LinkedIn: [chinmaygovind](https://www.linkedin.com/in/chinmaygovind/)
+- Email: chinmaygov@gmail.com
+
 
 Feel free to reach out to us through our social media channels or email.
 
