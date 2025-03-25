@@ -1,10 +1,10 @@
 export const SITE = {
-  website: "https://e27ec68b.exfuturo.pages.dev/", // replace this with your deployed domain
+  website: "https://exfuturo.org/", // replace this with your deployed domain
   author: "Viraj Singh",
   profile: "https://github.com/vsingh21",
   desc: "CTF Writeups by ex futuro",
   title: "ex futuro",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "exfuturo-og.png",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
@@ -14,7 +14,7 @@ export const SITE = {
   editPost: {
     enabled: false,
     text: "Suggest Changes",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
+    url: "",
   },
   dynamicOgImage: true,
 } as const;
