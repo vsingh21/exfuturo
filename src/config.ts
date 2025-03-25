@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://github.com/vsingh21",
   desc: "CTF Writeups by ex futuro",
   title: "ex futuro",
-  ogImage: "exfuturo-og.png",
+  ogImage: "exfuturo_og.png",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
